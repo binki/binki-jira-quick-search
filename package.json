@@ -1,6 +1,6 @@
 {
   "name": "binki-jira-quick-search",
-  "homepage": "https://binki.github.io/binki-jira-quick-saerch/",
+  "homepage": "https://binki.github.io/binki-jira-quick-search/",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
