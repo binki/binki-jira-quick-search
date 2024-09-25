@@ -17,10 +17,12 @@ function App() {
   }, []);
 
   const [, uriBase, hashPath, hashParams] = (/([^#]*)#([^?]*)\??(.*)/.exec(href) || []);
-  function setHash(path:string, params?:{[key:string]:string}) {
-    const serializedParams = params ? Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(String(params[key]))}`).join('&') : '';
-    window.location.href = uriBase + '#' + path + (serializedParams.length ? '?' + serializedParams : '');
-  };
+  const setHash = React.useCallback(() => {
+    return function (path:string, params?:{[key:string]:string}) {
+      const serializedParams = params ? Object.keys(params).map(key => `${encodeURIComponent(key)}=${encodeURIComponent(String(params[key]))}`).join('&') : '';
+      window.location.href = uriBase + '#' + path + (serializedParams.length ? '?' + serializedParams : '');
+    };
+  }, [uriBase]);
   if (hashPath) {
     const params = Object.create(null);
     for (const pair of (hashParams || '').split(/&/g).map(param => param.split('='))) {

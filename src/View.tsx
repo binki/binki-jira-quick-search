@@ -1,6 +1,9 @@
 import React from 'react';
 
-function View(props:{
+function View({
+  params,
+  setHash,
+}:{
   params:{
     [key:string]:string,
   },
@@ -9,18 +12,18 @@ function View(props:{
   const [term, setTerm] = React.useState('');
   const instance = (() => {
     try {
-      return new URL(props.params.instance);
+      return new URL(params.instance);
     } catch (e) {
       console.error(e);
     }
   })();
-  const project = props.params.project;
+  const project = params.project;
   const valid = !!(instance && project);
   React.useEffect(() => {
     if (!valid) {
-      props.setHash('setup');
+      setHash('setup');
     }
-  }, [valid]);
+  }, [setHash, valid]);
   if (valid) {
     return (
       <div>
